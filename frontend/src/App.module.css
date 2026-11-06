@@ -1,0 +1,256 @@
+.app {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+}
+
+.panel {
+  position: absolute;
+  top: var(--gutter);
+  left: var(--gutter);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: var(--panel-width);
+  max-height: calc(100% - 2 * var(--gutter));
+  overflow: clip;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  backdrop-filter: blur(18px) saturate(1.5);
+  animation: panel-in 0.7s var(--ease-out) both;
+}
+
+.panel::before,
+.panel::after {
+  position: absolute;
+  z-index: -1;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  content: '';
+  filter: blur(70px);
+  pointer-events: none;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+.panel::before {
+  top: -160px;
+  left: -120px;
+  background: color-mix(in srgb, var(--color-glow) 28%, transparent);
+}
+
+.panel::after {
+  top: -120px;
+  right: -180px;
+  background: rgb(255 160 70 / 0.16);
+  animation-direction: alternate-reverse;
+}
+
+.scroll {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  padding: 4px 16px 20px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--color-line-strong) transparent;
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
+  animation: fade-in 0.3s var(--ease-out);
+}
+
+.scroll[hidden] {
+  display: none;
+}
+
+.formSlot {
+  display: grid;
+  flex: none;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows 0.45s var(--ease-out),
+    opacity 0.3s;
+}
+
+.formSlot[data-collapsed] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.formSlotBody {
+  min-height: 0;
+  margin: -8px -16px -28px;
+  padding: 8px 16px 28px;
+  overflow: hidden;
+}
+
+.formSlot[data-collapsed] + * {
+  margin-top: -14px;
+}
+
+.header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 16px 14px 18px;
+}
+
+.panel[data-minimized] .header {
+  padding-bottom: 18px;
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+}
+
+.header h1 {
+  overflow: hidden;
+  color: var(--color-text-strong);
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.header p {
+  overflow: hidden;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logo {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-on-accent);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.2) inset,
+    0 6px 22px rgb(255 150 60 / 0.45);
+}
+
+.logo svg {
+  width: 21px;
+  height: 21px;
+  stroke-width: 2.2;
+}
+
+.iconButton {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--color-text);
+  background: var(--color-glass-strong);
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.4s var(--ease-spring);
+}
+
+.iconButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+.iconButton:hover {
+  color: var(--color-glow);
+  border-color: var(--color-glow);
+  box-shadow: 0 0 16px var(--color-glow-soft);
+}
+
+.iconButton:active {
+  transform: scale(0.92);
+}
+
+.panel[data-minimized] .minimize {
+  transform: rotate(180deg);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px) scale(0.98);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes drift {
+  to {
+    transform: translate(60px, 50px) scale(1.15);
+  }
+}
+
+@media (max-width: 860px) {
+  .app {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gutter);
+    height: auto;
+    min-height: 100%;
+    padding: var(--gutter);
+    overflow: visible;
+  }
+
+  .panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    max-height: none;
+  }
+
+  .scroll {
+    overflow: visible;
+  }
+
+  .minimize {
+    display: none;
+  }
+
+  .map {
+    position: relative;
+    height: 75vh;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media print {
+  .app {
+    height: auto;
+    overflow: visible;
+  }
+
+  .panel,
+  .map {
+    display: none;
+  }
+}

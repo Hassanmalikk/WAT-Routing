@@ -1,0 +1,60 @@
+.card {
+  position: relative;
+  padding: 16px;
+  background: linear-gradient(180deg, var(--color-card-top), var(--color-card-bottom));
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  box-shadow:
+    0 1px 0 var(--color-highlight) inset,
+    var(--shadow-card);
+}
+
+.rise {
+  animation: rise 0.55s var(--ease-out) both;
+  animation-delay: min(calc(var(--order, 0) * 70ms), 420ms);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 0 4px;
+  color: var(--color-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.count {
+  padding: 0 7px;
+  color: var(--color-text);
+  background: var(--color-glass-strong);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
+.spinner {
+  display: inline-block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

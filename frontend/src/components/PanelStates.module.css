@@ -1,0 +1,214 @@
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 4px 0 0;
+  list-style: none;
+}
+
+.steps li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 6px;
+  font-size: 0.84rem;
+}
+
+.steps li > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  color: var(--color-muted);
+}
+
+.steps strong {
+  color: var(--color-text-strong);
+  font-weight: 600;
+}
+
+.stepIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--color-glow);
+  background: color-mix(in srgb, var(--color-glow) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-glow) 25%, transparent);
+  border-radius: 10px;
+}
+
+.stepIcon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 2px 4px 4px;
+  color: var(--color-text);
+  font-size: 0.86rem;
+}
+
+.track {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+  background: var(--color-glass-strong);
+  border-radius: 999px;
+}
+
+.track::after {
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--color-glow), transparent);
+  border-radius: inherit;
+  box-shadow: 0 0 12px var(--color-glow);
+  content: '';
+  animation: travel 1.3s ease-in-out infinite;
+}
+
+.ghost {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ghostHeader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.ghostAvatar,
+.ghostLine,
+.ghostBar {
+  display: block;
+  background:
+    linear-gradient(90deg, transparent 0%, var(--color-shimmer) 50%, transparent 100%) 0 0 / 200%
+      100%,
+    var(--color-glass-strong);
+  animation: shimmer 1.5s linear infinite;
+}
+
+.ghostAvatar {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+.ghostLine {
+  width: 55%;
+  height: 12px;
+  border-radius: 6px;
+}
+
+.ghostBar {
+  height: 8px;
+  border-radius: 999px;
+}
+
+.error {
+  display: flex;
+  gap: 12px;
+  border-color: color-mix(in srgb, var(--color-danger) 35%, transparent);
+  box-shadow:
+    0 1px 0 var(--color-highlight) inset,
+    0 0 32px -12px color-mix(in srgb, var(--color-danger) 55%, transparent);
+}
+
+.errorIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--color-danger);
+  background: var(--color-danger-bg);
+  border-radius: 10px;
+}
+
+.errorIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.errorBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  min-width: 0;
+  font-size: 0.88rem;
+}
+
+.errorBody strong {
+  color: var(--color-text-strong);
+}
+
+.retry {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 6px;
+  padding: 6px 12px;
+  color: var(--color-text-strong);
+  background: var(--color-glass-strong);
+  border: 1px solid var(--color-line-strong);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+.retry svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.retry:hover {
+  background: var(--color-track);
+  border-color: var(--color-text);
+}
+
+.retry:hover svg {
+  transform: rotate(180deg);
+}
+
+@keyframes travel {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(250%);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position:
+      100% 0,
+      0 0;
+  }
+
+  to {
+    background-position:
+      -100% 0,
+      0 0;
+  }
+}

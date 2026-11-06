@@ -1,0 +1,11 @@
+.env
+**/.env
+**/.venv
+**/node_modules
+**/__pycache__
+**/.mypy_cache
+**/.pytest_cache
+**/.ruff_cache
+frontend/dist
+backend/tests
+.DS_Store
